@@ -34,7 +34,7 @@ function fetchProductReviews(productId: number): Promise<ProductReview[]> {
         resolve(productReviews)
       } else {
         reject(
-          `Failed to fetch product reviews for product with id ${productId}.`
+          `Failed to fetch product reviews for product with ID ${productId}.`
         )
       }
     }, FETCH_PRODUCT_REVIEW_DELAY)
