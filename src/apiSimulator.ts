@@ -1,25 +1,21 @@
+import Product from "./types/Product"
+import mockProducts from "./data/mockProducts"
+
+import ProductReview from "./types/ProductReview"
+import mockProductReviews from "./data/mockProductReviews"
+
+const FETCH_SUCCESS_RATE: number = 0.75
 const FETCH_PRODUCT_DELAY: number = 1000
+const FETCH_PRODUCT_REVIEW_DELAY: number = 1500
 
-type Product = {
-  id: number
-  name: string
-  price: number
-}
-
-const mockProducts: Product[] = [
-  { id: 0, name: "Fidget Spinner", price: 12.99 },
-  { id: 1, name: "Toy Car", price: 1.99 },
-  { id: 2, name: "Space Elevator", price: 4999999999.99 },
-]
-
-function isFetchProductCatalogSuccessful(): boolean {
-  return Math.random() < 0.5
+function isFetchSuccessful(): boolean {
+  return Math.random() < FETCH_SUCCESS_RATE
 }
 
 function fetchProductCatalog(): Promise<Product[]> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (isFetchProductCatalogSuccessful()) {
+      if (isFetchSuccessful()) {
         resolve(mockProducts)
       } else {
         reject("Failed to fetch product catalog.")
@@ -28,12 +24,25 @@ function fetchProductCatalog(): Promise<Product[]> {
   })
 }
 
-function fetchProductReview() {
-  /* TODO */
+function fetchProductReviews(productId: number): Promise<ProductReview[]> {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (isFetchSuccessful()) {
+        const productReviews: ProductReview[] = mockProductReviews.filter(
+          (review) => review.product_id == productId
+        )
+        resolve(productReviews)
+      } else {
+        reject(
+          `Failed to fetch product reviews for product with id ${productId}.`
+        )
+      }
+    }, FETCH_PRODUCT_REVIEW_DELAY)
+  })
 }
 
 function fetchSalesReport() {
   /* TODO */
 }
 
-export { fetchProductCatalog, fetchProductReview, fetchSalesReport }
+export { fetchProductCatalog, fetchProductReviews, fetchSalesReport }
