@@ -1,12 +1,12 @@
-import Product from "./types/Product"
-import ProductReview from "./types/ProductReview"
-import SalesReport from "./types/SalesReport"
+import Product from "../types/Product"
+import ProductReview from "../types/ProductReview"
+import SalesReport from "../types/SalesReport"
 
-import mockProducts from "./data/mockProducts"
-import mockProductReviews from "./data/mockProductReviews"
-import mockSalesReport from "./data/mockSalesReport"
+import mockProducts from "../data/mockProducts"
+import mockProductReviews from "../data/mockProductReviews"
+import mockSalesReport from "../data/mockSalesReport"
 
-import isFetchSuccessful from "./utils/isFetchSuccessful"
+import isFetchSuccessful from "../utils/isFetchSuccessful"
 
 const FETCH_PRODUCT_DELAY: number = 1000
 const FETCH_PRODUCT_REVIEW_DELAY: number = 1500
