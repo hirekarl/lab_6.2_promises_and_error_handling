@@ -6,7 +6,7 @@ import mockProducts from "../data/mockProducts"
 import mockProductReviews from "../data/mockProductReviews"
 import mockSalesReport from "../data/mockSalesReport"
 
-import isFetchSuccessful from "../utils/isFetchSuccessful"
+import attemptFetch from "../utils/attemptFetch"
 
 const FETCH_PRODUCT_DELAY: number = 1000
 const FETCH_PRODUCT_REVIEW_DELAY: number = 1500
@@ -15,10 +15,11 @@ const FETCH_SALES_REPORT_DELAY: number = 1000
 function fetchProductCatalog(): Promise<Product[]> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (isFetchSuccessful()) {
+      try {
+        attemptFetch("Product catalog")
         resolve(mockProducts)
-      } else {
-        reject("Failed to fetch product catalog.")
+      } catch (error) {
+        reject(error)
       }
     }, FETCH_PRODUCT_DELAY)
   })
@@ -27,15 +28,14 @@ function fetchProductCatalog(): Promise<Product[]> {
 function fetchProductReviews(productId: number): Promise<ProductReview[]> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (isFetchSuccessful()) {
+      try {
+        attemptFetch(`Product with ID ${productId}`)
         const productReviews: ProductReview[] = mockProductReviews.filter(
           (review) => review.product_id === productId
         )
         resolve(productReviews)
-      } else {
-        reject(
-          `Failed to fetch product reviews for product with ID ${productId}.`
-        )
+      } catch (error) {
+        reject(error)
       }
     }, FETCH_PRODUCT_REVIEW_DELAY)
   })
@@ -44,10 +44,11 @@ function fetchProductReviews(productId: number): Promise<ProductReview[]> {
 function fetchSalesReport(): Promise<SalesReport> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (isFetchSuccessful()) {
+      try {
+        attemptFetch("Sales report")
         resolve(mockSalesReport)
-      } else {
-        reject("Failed to fetch sales report.")
+      } catch (error) {
+        reject(error)
       }
     }, FETCH_SALES_REPORT_DELAY)
   })

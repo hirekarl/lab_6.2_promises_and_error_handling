@@ -8,7 +8,8 @@ import {
   fetchSalesReport,
 } from "./api/apiSimulator"
 
-const SPACE_ELEVATOR_PRODUCT_ID: number = 2
+const TOTAL_PRODUCT_COUNT = 3
+const RANDOM_PRODUCT_ID = Math.round(Math.random() * (TOTAL_PRODUCT_COUNT - 1))
 
 const currencyDisplayOptions: Intl.NumberFormatOptions = {
   style: "currency",
@@ -35,10 +36,10 @@ function main(): void {
         )
       })
 
-      return fetchProductReviews(SPACE_ELEVATOR_PRODUCT_ID)
+      return fetchProductReviews(RANDOM_PRODUCT_ID)
     })
     .then((productReviews: ProductReview[]) => {
-      console.log(`\nReviews for product with ID ${SPACE_ELEVATOR_PRODUCT_ID}:`)
+      console.log(`\nReviews for product with ID ${RANDOM_PRODUCT_ID}:`)
       productReviews.forEach((review) => {
         console.log(
           `- Product Name: ${review.product_name}, Reviewer: ${review.customer_name}, Review: ${review.product_review}`
@@ -61,7 +62,7 @@ function main(): void {
       )
     })
     .catch((error) => {
-      console.error(`\nError: ${error}`)
+      console.error(`\n${error.name}: ${error.message}`)
     })
     .finally(() => {
       console.info("\n...API operations completed.\n")
